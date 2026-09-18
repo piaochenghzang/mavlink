@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<mavlink>
+
+  <include>common.xml</include>
+
+  <messages>
+
+    <!-- PX4 -> Companion/Gazebo -->
+    <message id="42000" name="ARM_JOINT_COMMAND">
+      <description>SO101 joint position and velocity command.</description>
+
+      <field type="float[6]" name="position" units="rad">
+        Joint position command: shoulder_pan, shoulder_lift, elbow_flex,
+        wrist_flex, wrist_roll, gripper.
+      </field>
+
+      <field type="float[6]" name="velocity" units="rad/s">
+        Joint velocity command.
+      </field>
+    </message>
+
+
+    <!-- Companion/Gazebo -> PX4 -->
+    <message id="42001" name="ARM_JOINT_STATUS">
+      <description>SO101 measured joint position and velocity.</description>
+
+      <field type="float[6]" name="position" units="rad">
+        Measured joint position: shoulder_pan, shoulder_lift, elbow_flex,
+        wrist_flex, wrist_roll, gripper.
+      </field>
+
+      <field type="float[6]" name="velocity" units="rad/s">
+        Measured joint velocity.
+      </field>
+    </message>
+
+  </messages>
+
+</mavlink>

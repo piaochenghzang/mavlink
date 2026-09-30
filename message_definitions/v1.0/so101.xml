@@ -34,6 +34,31 @@
       </field>
     </message>
 
+    <!-- Read-only simulation grasp sensor. Never encodes motor current. -->
+    <message id="42002" name="ARM_GRASP_FEEDBACK">
+      <description>Read-only SO101 grasp observations. Capability bits: contact=1, force=2, object pose=4, clearance=8, verified fixed bench=16. Source 1 is simulation ground truth, not a hardware grasp sensor.</description>
+      <field type="uint64_t" name="sample_time_us" units="us">End of source simulation sampling window.</field>
+      <field type="uint32_t" name="source_sequence">New source sample sequence, never refreshed by forwarding.</field>
+      <field type="uint32_t" name="world_epoch">Changes when the source world clock resets.</field>
+      <field type="uint32_t" name="target_id">Configured target identity, never inferred from arbitrary contact.</field>
+      <field type="uint16_t" name="profile_id">Verified bench profile, 1 is fixed cube20.</field>
+      <field type="uint16_t" name="capabilities">Validity bitmask; unavailable values are not zero measurements.</field>
+      <field type="uint8_t" name="source">1 is SIM_GROUND_TRUTH.</field>
+      <field type="uint32_t" name="contact_frames">Number of unique received physics frames in this window.</field>
+      <field type="float" name="sample_window_s" units="s">Source sampling interval.</field>
+      <field type="float" name="fixed_fraction">Fixed-finger contact frame fraction.</field>
+      <field type="float" name="moving_fraction">Moving-finger contact frame fraction.</field>
+      <field type="float" name="bilateral_fraction">Both fingers contact the same configured target in one physics frame.</field>
+      <field type="float" name="support_fraction">Target/support contact fraction.</field>
+      <field type="float" name="other_fraction">Target/non-finger vehicle contact fraction.</field>
+      <field type="float" name="support_arm_fraction">Support/vehicle contact fraction.</field>
+      <field type="float" name="fixed_normal_n" units="N">Fixed-finger mean normal force.</field>
+      <field type="float" name="moving_normal_n" units="N">Moving-finger mean normal force.</field>
+      <field type="float" name="vertical_force_n" units="N">World Z component of both finger forces on target, diagnostic only.</field>
+      <field type="float[3]" name="object_center_gripper" units="m">Target center in actual gripper_link frame.</field>
+      <field type="float" name="object_height_world" units="m">Actual target height, simulation only.</field>
+      <field type="float" name="body_support_clearance" units="m">Signed world Y AABB separation, valid only for fixed bench profile.</field>
+    </message>
   </messages>
 
 </mavlink>
